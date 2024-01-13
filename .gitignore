@@ -1,0 +1,6 @@
+server/node_modules
+server/dist
+
+code-runner/node_modules
+
+.env
