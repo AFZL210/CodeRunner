@@ -1,6 +1,6 @@
 server/node_modules
 server/dist
 
-code-runner/node_modules
+cr/node_modules
 
 .env
