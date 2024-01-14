@@ -44,13 +44,13 @@ export const saveCode = async (req: Request, res: Response) => {
     try {
         const { author, code, lang }: SaveCodeI = req.body;
 
-        await db.code.create({
+        const data = await db.code.create({
             data: {
                 author, code, lang
             }
         });
-
-        res.json({ ok: true, data: "Saved code" }).status(200);
+        console.log(data)
+        res.json({ ok: true, data: "code saved successfully" }).status(200);
     } catch (error) {
         throwError(req, res, { ok: false, message: "Error while saving code, try again", statusCode: 400, console: `${(error as Error).message}`, location: "saveCode()" })
     }
