@@ -22,6 +22,7 @@ export const runCode = async (req: Request, res: Response) => {
 
 export const getCode = async (req: Request, res: Response) => {
     try {
+        // TODO: use redis. like a 100000 people gonna use it
         const codeId = req.params.codeId;
         const code = await db.code.findFirst({
             where: {
