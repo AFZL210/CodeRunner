@@ -1,6 +1,6 @@
 "use client"
 
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
         <div className="w-[100%] max-h-[70vh] mt-2">
           <CodeEditor
             value={code}
-            language="cpp"
+            language="js"
             placeholder={`Please enter ${lang} code.`}
             onChange={(evn) => setCode(evn.target.value)}
             padding={15}
@@ -40,7 +40,6 @@ export default function Home() {
         </div>
 
         <div className="w-[100%] h-12 flex items-center justify-end gap-3 mt-2">
-          <button className="px-3 bg-slate-600 text-white rounded-md py-2">Save Code</button>
           <button className="px-3 bg-slate-600 text-white rounded-md py-2">Run</button>
         </div>
       </div>
