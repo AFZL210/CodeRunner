@@ -2,11 +2,26 @@
 
 import React, { useState } from "react";
 import CodeEditor from '@uiw/react-textarea-code-editor';
+import axios from "axios";
 
 export default function Home() {
 
   const [code, setCode] = useState("");
+  const [output, setOutput] = useState("");
   const [lang, setLang] = useState("JavaScript");
+
+  const runCodeAsync = async () => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/runcode', {
+        code, lang
+      });
+
+      console.log(res.data.data.result)
+      setOutput(res.data.data.result);
+    } catch (e) {
+      console.log("Error", (e as Error).message);
+    }
+  }
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -15,9 +30,9 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <span>Language</span>
             <select name="lang" onChange={(e) => setLang(e.target.value)} >
-              <option value="JavaScript">JavaScript</option>
-              <option value="C++">C++</option>
-              <option value="Python">Python</option>
+              <option value="js">JavaScript</option>
+              <option value="cpp">C++</option>
+              <option value="python">Python</option>
             </select>
           </div>
         </div>
@@ -39,8 +54,23 @@ export default function Home() {
           />
         </div>
 
-        <div className="w-[100%] h-12 flex items-center justify-end gap-3 mt-2">
-          <button className="px-3 bg-slate-600 text-white rounded-md py-2">Run</button>
+        <div className="w-[100%] h-fit flex items-center justify-between gap-3 mt-2">
+          <button onClick={runCodeAsync} className="px-3 bg-slate-600 text-white rounded-md py-2">Run</button>
+          <CodeEditor
+            value={output}
+            language="js"
+            placeholder={`Output`}
+            onChange={(evn) => setCode(evn.target.value)}
+            padding={15}
+            style={{
+              backgroundColor: "black",
+              color: 'white',
+              fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+              height: '80px',
+              width: '70vw',
+              overflow: 'scroll'
+            }}
+          />
         </div>
       </div>
     </div>

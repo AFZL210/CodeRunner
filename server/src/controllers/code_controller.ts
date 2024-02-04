@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { db } from "../lib/db";
 import { throwError } from "../lib/throwError";
-import { RunCodeI, SaveCodeI } from "../lib/types";
+import { RunCodeI } from "../lib/types";
 import { isValidLang } from "../lib/helpers";
+import * as cr from './code_runner';
 
 export const runCode = async (req: Request, res: Response) => {
     try {
@@ -12,9 +12,13 @@ export const runCode = async (req: Request, res: Response) => {
             return res.json({ ok: false, data: "Invalid language or empty code" }).status(400);
         }
 
-        // TODO: idk how to run code in container. lol
+        console.log(code, lang);
 
-        res.json({ ok: true, data: "210" });
+        const output = await cr.executeUserCodeInContainer(code, lang);
+        // @ts-ignore
+        // console.log(output.result);
+
+        res.json({ ok: true, data: output });
     } catch (error) {
         throwError(req, res, { ok: false, message: "Error occured, try again", statusCode: 400, console: `${(error as Error).message}`, location: "runCode()" });
     }
