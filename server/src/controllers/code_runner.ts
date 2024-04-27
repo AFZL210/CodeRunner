@@ -54,8 +54,8 @@ export const executeUserCodeInContainer = async(code: string, language: string) 
       await container.start();
   
       const tle = setTimeout(async () => {
-        console.log("sending a tle")
-        resolve({result: "Time Limit Exceed!! 😔 \n \n - Optimize your code \n - Avoid infinite loops", sucess: false});
+        console.log("sending a tle");
+        resolve({result: "Time Limit Exceed!! \n \n - Optimize your code \n - Avoid infinite loops", sucess: false});
         await container.stop();
       }, 2000);
   

@@ -5,7 +5,7 @@ import codeRoute from './routes/code_route';
 import cors from 'cors';
 
 app.use(express.json());
-app.use(cors({ origin: '*' }))
+app.use(cors({ origin: '*' }));
 
 app.get("/me", (req: Request, res: Response) => {
     res.json({ data: "hi" }).status(200);
